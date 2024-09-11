@@ -67,8 +67,8 @@
         <parent link="base_link"/>
         <child link="right_wheel"/>
         <origin xyz="0.0 -0.2 -0.15" rpy="1.57 0 0"/>
-        <axis xyz="0 0 1"/>
-        <dynamics friction="0.2" damping="0.05"/>
+        <axis xyz="0 0 -1"/>
+        <dynamics friction="0.02" damping="0.005"/>
     </joint>
     <link name="right_wheel">
         <inertial>
@@ -98,8 +98,8 @@
         <parent link="base_link"/>
         <child link="left_wheel"/>
         <origin xyz="0.0 0.2 -0.15" rpy="1.57 0 0"/>
-        <axis xyz="0 0 1"/>
-        <dynamics friction="0.2" damping="0.05"/>
+        <axis xyz="0 0 -1"/>
+        <dynamics friction="0.02" damping="0.005"/>
     </joint>
     <!-- Left wheel -->
     <link name="left_wheel">
@@ -111,7 +111,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-            <cylinder radius="0.025" length="0.02"/> <!-- 5 cm diameter -->
+            <cylinder radius="0.025" length="0.02"/>
             </geometry>
             <material name="red">
             <color rgba="0.8 0 0.1 1.0"/>
@@ -133,7 +133,7 @@
         <axis xyz="1 0 0"/>
         <axis2 xyz="0 1 0"/>
         <axis3 xyz="0 0 1"/>
-        <dynamics friction="0.1" damping="0.05"/>
+        <dynamics friction="0.01" damping="0.002"/>
     </joint>
 
     <!-- Front caster wheel -->
@@ -168,7 +168,7 @@
         <axis xyz="1 0 0"/>
         <axis2 xyz="0 1 0"/>
         <axis3 xyz="0 0 1"/>
-        <dynamics friction="0.1" damping="0.05"/>
+        <dynamics friction="0.01" damping="0.002"/>
     </joint>
 
    
@@ -203,8 +203,8 @@
             <updateRate>20</updateRate>
             <leftJoint>left_wheel_joint</leftJoint>
             <rightJoint>right_wheel_joint</rightJoint>
-            <wheelSeparation>1.66</wheelSeparation>
-            <wheelDiameter>0.8</wheelDiameter>
+            <wheelSeparation>0.4</wheelSeparation>
+            <wheelDiameter>0.05</wheelDiameter>
             <torque>10</torque>
             <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
@@ -232,7 +232,7 @@
     <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-            <cylinder radius="0.15" length="0.20"/>
+            <cylinder radius="0.05" length="0.07"/>
         </geometry>
         <material name="Red">
             <color rgba="0.7 0.1 0.1 1" />
@@ -241,7 +241,7 @@
     <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-            <cylinder radius="0.15" length="0.20"/>
+            <cylinder radius="0.05" length="0.07"/>
         </geometry>
     </collision>
     </link>
@@ -268,7 +268,7 @@
                     </horizontal>
                 </scan>
                 <range>
-                    <min>0.20</min>
+                    <min>0.13</min>
                     <max>10.0</max>
                     <resolution>0.01</resolution>
                 </range>
@@ -279,7 +279,7 @@
                 </noise>
             </ray>
             <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-                <topicName>/laser/scan</topicName>
+                <topicName>/scan</topicName>
                 <frameName>sensor_laser</frameName>
             </plugin>
         </sensor>
