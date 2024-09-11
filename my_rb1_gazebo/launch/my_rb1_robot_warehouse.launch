@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- roslaunch arguments --> 
+  <arg name="debug" default="false"/>
+  <arg name="world_name" default="$(find rb1_base_gazebo)/worlds/ros2_online_workshop.world"/>
+
+  <!-- Load the URDF file into the robot_description parameter -->
+  <param name="robot_description" command="cat $(find my_rb1_description)/urdf/my_rb1_robot.urdf"/>
+
+  <!-- Include Gazebo world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="verbose" value="true"/>
+  </include>
+  
+  <!-- Spawn the robot model in Gazebo -->
+  <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-urdf -model my_rb1_robot -param robot_description -x -0.22 -y -1.35 -z 0.1 -R 0 -P 0 -Y 0.7854"/>
+
+  <!-- Joint State Publisher -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+  <!-- Robot State Publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  
+</launch>
