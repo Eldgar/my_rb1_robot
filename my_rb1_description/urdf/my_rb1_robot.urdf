@@ -1,0 +1,176 @@
+<?xml version="1.0" ?>
+<robot name="rb1_robot">
+  <!-- Base footprint link -->
+  <link name="base_footprint">
+    <inertial>
+      <mass value="25.0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.25" length="0.30" />
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0.1 0.8 0.6"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.15" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.25" length="0.30" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Base link -->
+  <gazebo reference="base_link">
+        <material>Gazebo/Blue</material>
+  </gazebo>
+  <link name="base_link">
+    <inertial>
+      <mass value="25" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <!-- Moment of inertia for a solid cylinder -->
+      <inertia ixx="0.91145" 
+           iyy="0.91145"
+           izz="0.78125"
+           ixy="0" ixz="0" iyz="0" />
+    </inertial>
+  </link>
+
+  <joint name="base_footprint_to_base_link" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Right wheel joint -->
+    <joint name="right_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="right_wheel"/>
+        <origin xyz="0.0 -0.2 -0.15" rpy="1.57 0 0"/>
+        <axis xyz="0 0 1"/> <!-- Revolve around the z-axis -->
+    </joint>
+    <link name="right_wheel">
+        <inertial>
+            <mass value="0.5"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="0.001" iyy="0.001" izz="0.001" ixy="0" ixz="0" iyz="0"/>
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <cylinder radius="0.025" length="0.02"/>
+            </geometry>
+            <material name="red">
+            <color rgba="0.7 0.0 0.1 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <cylinder radius="0.025" length="0.02"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- Left wheel joint -->
+    <joint name="left_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="left_wheel"/>
+        <origin xyz="0.0 0.2 -0.15" rpy="1.57 0 0"/>
+        <axis xyz="0 0 1"/> <!-- Revolve around the z-axis -->
+    </joint>
+    <!-- Left wheel -->
+    <link name="left_wheel">
+        <inertial>
+            <mass value="0.5"/> <!-- Adjust mass as needed -->
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="0.001" iyy="0.001" izz="0.001" ixy="0" ixz="0" iyz="0"/> <!-- Adjust inertia if needed -->
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <cylinder radius="0.025" length="0.02"/> <!-- 5 cm diameter -->
+            </geometry>
+            <material name="red">
+            <color rgba="0.8 0 0.1 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <cylinder radius="0.025" length="0.02"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- Front caster wheel joint -->
+    <joint name="front_caster_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="front_caster_wheel"/>
+        <origin xyz="-0.1 0.0 -0.15" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <dynamics friction="0.0" damping="0.0"/>
+    </joint>
+
+    <!-- Front caster wheel -->
+    <link name="front_caster_wheel">
+        <inertial>
+            <mass value="0.2"/> <!-- Adjust the mass as needed -->
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="0.0001" iyy="0.0001" izz="0.0001" ixy="0" ixz="0" iyz="0"/> <!-- Adjust inertia if needed -->
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <sphere radius="0.025"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0.8 0.8 0.8 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <sphere radius="0.025"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- Back caster wheel joint -->
+    <joint name="back_caster_wheel_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="back_caster_wheel"/>
+        <origin xyz="0.1 0.0 -0.15" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <dynamics friction="0.0" damping="0.0"/> 
+    </joint>
+
+    <!-- Back caster wheel -->
+    <link name="back_caster_wheel">
+    <inertial>
+        <mass value="0.2"/> <!-- Adjust the mass as needed -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.0001" iyy="0.0001" izz="0.0001" ixy="0" ixz="0" iyz="0"/> <!-- Adjust inertia if needed -->
+    </inertial>
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <sphere radius="0.025"/>
+        </geometry>
+        <material name="gray">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <sphere radius="0.025"/>
+        </geometry>
+    </collision>
+    </link>
+
+</robot>
