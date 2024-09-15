@@ -20,7 +20,7 @@
   
   <!-- Spawn the robot model in Gazebo -->
   <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" output="screen"
-        args="-urdf -model my_rb1_robot -param robot_description -x -0.22 -y -1.35 -z 0.1 -R 0 -P 0 -Y 0.7854"/>
+        args="-urdf -model my_rb1_robot -param robot_description -x -0.35 -y -1.3 -z 0.1 -R 0 -P 0 -Y 0.7854"/>
 
   <!-- Joint State Publisher -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
